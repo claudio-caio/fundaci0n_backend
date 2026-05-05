@@ -29,9 +29,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-j^-lh$g5_*5*5*p2-qc^xjurb+m4)=%6hlj#_m8=j*87y=45gd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.ngrok-free.app', 'https://fundaci0n-backend-vgg8.onrender.com',]
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '.ngrok-free.app',
+    'fundaci0n-backend-vgg8.onrender.com',
+]
 
 
 # Application definition
