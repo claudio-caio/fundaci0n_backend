@@ -1,0 +1,45 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+
+# Entorno virtual
+venv/
+env/
+.venv/
+
+# Archivos de configuración de entorno
+*.env
+.env.*
+!.env.example
+
+# ---- Django ----
+*.log
+staticfiles/
+local_settings.py
+
+# Archivos de migraciones (OPCIONAL: si no querés ignorarlos, borralo)
+# ** La mayoría de proyectos deberían incluir las migraciones en git **
+# */migrations/*
+# !*/migrations/__init__.py
+
+# ---- IDEs y editores ----
+.vscode/
+.idea/
+*.swp
+*~
+
+# ---- Sistema operativo ----
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# ---- Node (si usás React, Tailwind o Vite en frontend) ----
+node_modules/
+dist/
+build/
