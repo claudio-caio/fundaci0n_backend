@@ -55,7 +55,7 @@ class CreatePaymentView(APIView):
                 "failure": "https://fundacion-frontend.caioalegres.workers.dev/capacitaciones",
                 "pending": "https://fundacion-frontend.caioalegres.workers.dev/capacitaciones"
             },
-            "notification_url": "https://fundaci0n-backend-vgg8.onrender.com/api/payments/webhook/"
+            "notification_url": "https://fundaci0n-backend-63ij.onrender.com/api/payments/webhook/"
         }
 
         response = sdk.preference().create(preference_data)

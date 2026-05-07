@@ -31,7 +31,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '.ngrok-free.app',
-    'fundaci0n-backend-vgg8.onrender.com',
+    'fundaci0n-backend-63ij.onrender.com',
     'fundacion-frontend.caioalegres.workers.dev',
 ]
 
