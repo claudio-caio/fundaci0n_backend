@@ -12,7 +12,7 @@ from apps.payments.models import Payment
 from apps.enrollments.models import Inscripcion
 from apps.users.models import User
 
-# 🔐 (opcional por ahora)
+# 🔐 (activar en producción real si configurás el secret)
 from .utils import verify_signature
 
 
@@ -51,12 +51,11 @@ class CreatePaymentView(APIView):
                 "course_id": course.id
             },
             "back_urls": {
-                "success": "http://localhost:5173/",
-                "failure": "http://localhost:5173/capacitaciones",
-                "pending": "http://localhost:5173/capacitaciones"
+                "success": "https://fundacion-frontend.caioalegres.workers.dev/",
+                "failure": "https://fundacion-frontend.caioalegres.workers.dev/capacitaciones",
+                "pending": "https://fundacion-frontend.caioalegres.workers.dev/capacitaciones"
             },
-            # ⚠️ EN PRODUCCIÓN CAMBIAR POR TU DOMINIO REAL
-            "notification_url": "https://099e-2803-9800-94c2-7a92-3081-d16c-9734-e5b5.ngrok-free.app/api/payments/webhook/"
+            "notification_url": "https://fundaci0n-backend-vgg8.onrender.com/api/payments/webhook/"
         }
 
         response = sdk.preference().create(preference_data)
@@ -90,7 +89,7 @@ class MercadoPagoWebhook(APIView):
             print("⛔ Evento ignorado:", topic)
             return Response({"status": "ignored"})
 
-        # 🔐 ACTIVAR SOLO EN PRODUCCIÓN
+        # 🔐 ACTIVAR SOLO EN PRODUCCIÓN SEGURA
         # if not verify_signature(request):
         #     return Response({"error": "firma inválida"}, status=403)
 
@@ -103,9 +102,13 @@ class MercadoPagoWebhook(APIView):
         if not payment_id:
             return Response({"error": "sin payment_id"}, status=400)
 
+        # 🔥 EVITAR PROCESAR DUPLICADOS
+        if Payment.objects.filter(payment_id=payment_id).exists():
+            print("⚠️ Pago ya procesado")
+            return Response({"status": "already processed"})
+
         sdk = mercadopago.SDK(settings.MP_ACCESS_TOKEN)
 
-        # 🔥 Obtener pago desde MP
         payment_response = sdk.payment().get(payment_id)
 
         if payment_response.get("status") != 200:
@@ -130,7 +133,7 @@ class MercadoPagoWebhook(APIView):
         except:
             return Response({"error": "datos inválidos"}, status=400)
 
-        # 🔹 Guardar pago sin duplicar
+        # 🔹 Guardar pago
         Payment.objects.get_or_create(
             payment_id=payment_id,
             defaults={

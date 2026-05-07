@@ -16,19 +16,15 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-MP_ACCESS_TOKEN = os.getenv("MP_ACCESS_TOKEN")
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# 📁 Base
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# 🔐 Mercado Pago
+MP_ACCESS_TOKEN = os.getenv("MP_ACCESS_TOKEN", "")
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
+# 🔐 Seguridad
+SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-temp")
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-j^-lh$g5_*5*5*p2-qc^xjurb+m4)=%6hlj#_m8=j*87y=45gd'
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 ALLOWED_HOSTS = [
@@ -36,7 +32,9 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '.ngrok-free.app',
     'fundaci0n-backend-vgg8.onrender.com',
+    'fundacion-frontend.caioalegres.workers.dev',
 ]
+
 
 
 # Application definition
@@ -65,7 +63,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',  # 👈 acá correcto
-
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -149,7 +146,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 AUTH_USER_MODEL = 'users.User'
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "https://fundacion-frontend.caioalegres.workers.dev",
+]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -162,7 +161,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = 'caioalegres@gmail.com'
-EMAIL_HOST_PASSWORD = 'kgeetlkjjpvunoub'
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
 
