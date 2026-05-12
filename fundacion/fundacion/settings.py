@@ -148,6 +148,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 AUTH_USER_MODEL = 'users.User'
 CORS_ALLOWED_ORIGINS = [
     "https://fundacion-frontend.caioalegres.workers.dev",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
 ]
 
 REST_FRAMEWORK = {
